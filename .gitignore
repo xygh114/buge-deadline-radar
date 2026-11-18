@@ -1,0 +1,16 @@
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+
+# 运行产物
+node_modules/
+*.log
+__pycache__/
+*.pyc
+
+# 本地预览 / 临时文件
+.dsh-office-*/
+tmp/
