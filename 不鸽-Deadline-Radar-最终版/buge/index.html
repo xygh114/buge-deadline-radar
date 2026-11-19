@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<!-- 不鸽 · Deadline Radar【最终版】：重要性占比可调 / 职业规划 / 活动周期 / 学校档案导入 -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="不鸽 · Deadline Radar 最终版：学习计划、可调重要性占比、职业规划、固定安排周期、学校绩点学分导入。">
+<title>不鸽 · Deadline Radar · 最终版</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.6" cy="6" r="1.1"/><circle cx="3.6" cy="12" r="1.1"/><circle cx="3.6" cy="18" r="1.1"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8.5a6 6 0 1 0-12 0c0 6-2.5 7.5-2.5 7.5h17S18 14.5 18 8.5Z"/><path d="M10.2 20a2 2 0 0 0 3.6 0"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l10-10a2.5 2.5 0 0 0-3.5-3.5L4.5 16.5 4 20Z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5 13.9 9l5.6 1.9-5.6 1.9L12 18.4l-1.9-5.6L4.5 11 10.1 9 12 3.5Z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3.5V7M16 3.5V7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></symbol>
+  <symbol id="i-radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12 18 6"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 21 20H3L12 3.5Z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.4" r=".9" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M16 5.6a3 3 0 0 1 0 5.6M17.5 14.8c2 .7 3.2 2.4 3.2 4.6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5 18 12 8 18.5Z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M5 20h14"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5"/><path d="M12 9v4l2.5 2M9 4h6"/></symbol>
+  <symbol id="i-door" viewBox="0 0 24 24"><path d="M4 21V4h9v17M13 12h6M19 21V7"/></symbol>
+</svg>
+
+<div class="app">
+  <!-- ============ 左侧 ============ -->
+  <aside class="side">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"><span></span></div>
+      <div class="brand-text">
+        <div class="brand-name">不鸽<span class="mod-badge">最终版</span></div>
+        <div class="brand-sub">DEADLINE RADAR</div>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="主导航">
+      <button class="nav-item is-active" data-action="view" data-view="overview" title="总览">
+        <svg class="ico"><use href="#i-grid"/></svg><span>总览</span>
+      </button>
+      <button class="nav-item" data-action="view" data-view="plan" title="学习计划">
+        <svg class="ico"><use href="#i-calendar"/></svg><span>学习计划</span>
+        <span class="nav-count" id="navPlanCount">7</span>
+      </button>
+      <button class="nav-item" data-action="view" data-view="tasks" title="全部任务">
+        <svg class="ico"><use href="#i-list"/></svg><span>全部任务</span>
+        <span class="nav-count" id="navTaskCount">0</span>
+      </button>
+      <button class="nav-item" data-action="view" data-view="settings" title="设置与说明">
+        <svg class="ico"><use href="#i-sliders"/></svg><span>设置与说明</span>
+      </button>
+    </nav>
+
+    <div class="side-section">
+      <div class="side-label">通知来自</div>
+      <div id="platformNav" class="platform-nav"></div>
+    </div>
+
+    <div class="side-foot">
+      <p class="side-note">竞赛原型 · 最终版。所有数据只存在这台电脑的浏览器里，不会上传。</p>
+      <button class="ghost-link" data-action="view" data-view="settings">这个作品的说明 <svg class="ico sm"><use href="#i-arrow"/></svg></button>
+    </div>
+  </aside>
+
+  <!-- ============ 中间 ============ -->
+  <main class="main" id="main">
+    <section class="view" id="view-overview">
+      <header class="head">
+        <div class="head-meta">
+          <span id="dateLabel">—</span><span class="sep-dot"></span><span id="weekLabel">—</span>
+        </div>
+        <h1 id="headline">正在读取你的任务…</h1>
+        <p class="head-sub" id="headSub"></p>
+        <div class="head-actions">
+          <button class="btn btn-dark" data-action="open-import">
+            <svg class="ico"><use href="#i-plus"/></svg>导入通知
+          </button>
+          <button class="btn btn-ghost" data-action="open-manual">手动添加</button>
+          <button class="btn btn-ghost" data-action="open-music" title="音乐：白噪音与纯音乐">
+            <svg class="ico"><use href="#i-music"/></svg>音乐
+          </button>
+          <button class="btn btn-ghost" data-action="open-study" title="自习室：限时完成今天的一部分">
+            <svg class="ico"><use href="#i-door"/></svg>自习室
+          </button>
+          <button class="btn btn-icon" data-action="export-ics" title="导出到手机日历" aria-label="导出到手机日历">
+            <svg class="ico"><use href="#i-download"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="radar-card" aria-label="未来七天截止分布">
+        <div class="radar-top">
+          <div>
+            <div class="kicker">未来 7 天</div>
+            <div class="radar-hint" id="radarHint">—</div>
+          </div>
+          <div class="radar-legend">
+            <span><i class="lg-dot today"></i>今天</span>
+            <span><i class="lg-dot"></i>截止点</span>
+            <span><i class="lg-dot done"></i>已完成</span>
+          </div>
+        </div>
+        <div class="radar" id="radar"></div>
+      </section>
+
+      <section id="hero" class="hero-wrap"></section>
+
+      <div class="list-head">
+        <div class="list-title">
+          <h2>任务清单</h2>
+          <span class="list-count" id="listCount"></span>
+        </div>
+        <div class="filters" id="filters" role="tablist" aria-label="筛选任务"></div>
+        <label class="select-wrap">
+          <span>排序</span>
+          <select id="sortSel" aria-label="排序方式">
+            <option value="smart">智能优先级</option>
+            <option value="due">截止时间</option>
+            <option value="weight">成绩占比</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="taskList" class="task-list"></div>
+    </section>
+
+    <!-- ============ 学习计划（最终版：左上角可返回） ============ -->
+    <section class="view is-hidden" id="view-plan">
+      <header class="head compact">
+        <div class="head-back">
+          <button class="back-btn" data-action="back" aria-label="返回上一步" title="返回上一步">
+            <svg class="ico"><use href="#i-back"/></svg><span>返回</span>
+          </button>
+        </div>
+        <div class="head-meta"><span>学习计划</span><span class="sep-dot"></span><span id="planMeta">未来 7 天</span></div>
+        <h1>系统替你排好了 <em id="planDayCount">7</em> 天</h1>
+        <p class="head-sub" id="planSub">先按「紧急 × 重要」排序，再扣掉饭点、作息和社团安排，把每件事放进 45 分钟的时间块。</p>
+        <div class="head-actions">
+          <button class="btn btn-dark" data-action="replan"><svg class="ico"><use href="#i-spark"/></svg>按现在重排</button>
+          <button class="btn btn-ghost" data-action="view" data-view="settings">调整目标与作息</button>
+          <button class="btn btn-icon" data-action="export-ics" title="把截止时间导出到手机日历" aria-label="导出到手机日历">
+            <svg class="ico"><use href="#i-download"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="plan-strip" id="planStrip" aria-label="未来七天"></div>
+      <div class="plan-goals" id="planGoals" aria-label="周月日目标"></div>
+      <section class="plan-detail" id="planDetail"></section>
+
+      <footer class="page-foot">排程只看本机数据：任务、周/月/日目标、固定安排、绩点目标和今天的作息。</footer>
+    </section>
+
+    <section class="view is-hidden" id="view-tasks">
+      <header class="head compact">
+        <div class="head-meta"><span>全部任务</span><span class="sep-dot"></span><span id="tasksMeta">—</span></div>
+        <h1>按你自己的节奏排序</h1>
+        <div class="head-actions">
+          <button class="btn btn-dark" data-action="open-import"><svg class="ico"><use href="#i-plus"/></svg>导入通知</button>
+          <button class="btn btn-ghost" data-action="open-manual">手动添加</button>
+        </div>
+      </header>
+      <div class="list-head sticky">
+        <div class="list-title"><h2>全部</h2><span class="list-count" id="listCount2"></span></div>
+        <div class="filters" id="filters2" role="tablist" aria-label="筛选任务"></div>
+        <label class="select-wrap">
+          <span>排序</span>
+          <select id="sortSel2" aria-label="排序方式">
+            <option value="smart">智能优先级</option>
+            <option value="due">截止时间</option>
+            <option value="weight">成绩占比</option>
+          </select>
+        </label>
+      </div>
+      <div id="taskList2" class="task-list"></div>
+    </section>
+
+    <section class="view is-hidden" id="view-settings">
+      <header class="head compact">
+        <div class="head-meta"><span>设置与说明</span><span class="sep-dot"></span><span>给评委看的实现细节</span></div>
+        <h1>它是怎么工作的</h1>
+        <p class="head-sub">这一页同时是这份作品的“说明书”：算法怎么算、数据从哪来、哪里还做不到。</p>
+      </header>
+
+      <div class="settings-grid">
+        <section class="panel">
+          <h2>我的节奏</h2>
+          <p class="panel-sub">今日作战计划会按这个预算排队，超过预算的部分会明确告诉你“今天做不完”。</p>
+          <div class="setting-row">
+            <label for="dailyHours">每天可投入学习时间</label>
+            <output id="dailyHoursOut">3 小时</output>
+          </div>
+          <input id="dailyHours" class="range" type="range" min="1" max="8" step="0.5" value="3">
+          <div class="range-marks"><span>1h</span><span>4h</span><span>8h</span></div>
+
+          <div class="setting-row mt">
+            <label for="semStart">本学期第 1 周周一</label>
+            <span class="muted" id="weekNow">—</span>
+          </div>
+          <input id="semStart" class="input" type="date">
+          <p class="hint">“第 13 周周三”这类通知需要它才能换算成具体日期。</p>
+
+          <div class="setting-row mt">
+            <label for="wakeTime">起床 / 最晚学习</label>
+            <span class="muted">学习块按这个作息切</span>
+          </div>
+          <div class="time-row">
+            <input id="wakeTime" class="input" type="time" value="07:30" aria-label="起床时间">
+            <input id="sleepTime" class="input" type="time" value="23:00" aria-label="最晚学习时间">
+          </div>
+          <p class="hint">默认 7:30 起床、23:00 收工；周末自动晚起 45 分钟、多留 1 小时。</p>
+
+          <div class="setting-row mt">
+            <label for="goalMinutes">每天留给周/月目标</label>
+            <output id="goalMinutesOut">45 分钟</output>
+          </div>
+          <input id="goalMinutes" class="range" type="range" min="0" max="120" step="15" value="45">
+          <div class="range-marks"><span>0</span><span>60</span><span>120 分钟</span></div>
+          <details class="setting-explain" open>
+            <summary>这个滑杆是干什么的？</summary>
+            <p>给「重要不紧急」的周/月目标留的每日保护时间：只影响<strong>没有被关联任务完全覆盖</strong>的周/月目标，以及每日目标。示例里的周/月目标都关联了任务，所以调大它可能看不出变化；调到 0 会连每日目标块一起取消。</p>
+          </details>
+        </section>
+
+        <section class="panel">
+          <h2>提醒</h2>
+          <p class="panel-sub">每个截止点会自动生成 4 个提醒节点：提前 3 天、1 天、6 小时、1 小时。开启后，页面开着时会在这些时间点弹提醒。</p>
+          <button class="btn btn-ghost wide" data-action="notify" id="notifyBtn">
+            <svg class="ico"><use href="#i-bell"/></svg><span>开启桌面提醒</span>
+          </button>
+          <div class="reminder-preview" id="reminderPreview"></div>
+        </section>
+
+        <section class="panel wide-panel" id="priorityPanel">
+          <h2>紧急度 / 重要度占比</h2>
+          <p class="panel-sub">决定任务排序时两者各占多少。初始 60% / 40%；改完立即影响任务清单和学习计划的排序。</p>
+          <div class="priority-weights">
+            <div class="pw-slider">
+              <div class="setting-row"><label for="wUrgency">紧急度</label><output id="wUrgencyOut">60%</output></div>
+              <input id="wUrgency" class="range" type="range" min="0" max="100" step="5" value="60">
+            </div>
+            <div class="pw-slider">
+              <div class="setting-row"><label for="wImportance">重要度</label><output id="wImportanceOut">40%</output></div>
+              <input id="wImportance" class="range" type="range" min="0" max="100" step="5" value="40">
+            </div>
+            <div class="pw-total">合计 <b id="pwTotal">100%</b></div>
+          </div>
+          <div class="priority-note">
+            <p><b>为什么初始 6:4？</b>对学生来说，逾期是硬损失，紧急度略高；重要度 40% 已经包含绩点、学分、职业规划，周/月目标还有每日保护时间，不会被完全挤掉。</p>
+            <p><b>调到 7:3：</b>更偏“先别逾期”，截止密集或考试周更稳；代价是重要但不紧急的长期任务容易被推后。</p>
+            <p><b>调到 5:5：</b>更看重价值，长期目标和高权重任务更容易靠前；代价是临近截止的低价值任务可能被压后，逾期风险变大。</p>
+          </div>
+        </section>
+
+        <section class="panel wide-panel">
+          <h2>绩点与学分</h2>
+          <p class="panel-sub">绩点和学分是重要性的前两项。导入学校/教务文件可以一次填好；下面的滑杆决定它们各自占「重要性」的比例。</p>
+
+          <div class="profile-import">
+            <label class="btn btn-ghost upload-btn">
+              <svg class="ico"><use href="#i-upload"/></svg>导入学校文件
+              <input id="profileFile" type="file" accept=".txt,.csv,.json,text/plain,application/json">
+            </label>
+            <button class="link-btn" data-action="download-profile">下载模板</button>
+            <span class="profile-info" id="profileInfo">未导入</span>
+          </div>
+          <p class="hint">支持「字段=值」的 txt / csv，或 JSON。字段：gpaCurrent、gpaTarget、creditsEarned、creditsRequired、schoolRequirement、careerGoal。只在本机读取。</p>
+
+          <div class="form two mt">
+            <div class="field"><label for="gpaCurrent">当前绩点</label>
+              <input id="gpaCurrent" class="input" type="number" min="0" max="5" step="0.01" value="3.42"></div>
+            <div class="field"><label for="gpaTarget">目标绩点</label>
+              <input id="gpaTarget" class="input" type="number" min="0" max="5" step="0.01" value="3.72"></div>
+            <div class="field"><label for="creditsEarned">已修学分</label>
+              <input id="creditsEarned" class="input" type="number" min="0" max="400" step="1" value="0"></div>
+            <div class="field"><label for="creditsRequired">毕业要求学分</label>
+              <input id="creditsRequired" class="input" type="number" min="0" max="400" step="1" value="0"></div>
+          </div>
+          <div class="field mt">
+            <label for="schoolReq">学校要求（毕业 / 保研 / 奖学金）</label>
+            <input id="schoolReq" class="input" placeholder="例如：毕业需 160 学分；保研参考绩点 3.5 以上">
+          </div>
+
+          <div class="credit-progress">
+            <div class="load-bar"><i id="creditBar" style="width:0%"></i></div>
+            <div class="credit-meta" id="creditMeta">填入学分后显示毕业进度</div>
+          </div>
+
+          <div class="weight-box">
+            <div class="weight-head"><span>重要性占比</span><b id="weightTotal">合计 100%</b></div>
+            <div class="setting-row"><label for="wGpa">绩点</label><output id="wGpaOut">30%</output></div>
+            <input id="wGpa" class="range" type="range" min="0" max="100" step="1" value="30">
+            <div class="setting-row"><label for="wCredits">课程学分</label><output id="wCreditsOut">30%</output></div>
+            <input id="wCredits" class="range" type="range" min="0" max="100" step="1" value="30">
+            <p class="hint">调整一项，另外两项按原比例自动让出/补上；职业规划占比在右边卡片里调。</p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>数据</h2>
+          <p class="panel-sub">当前任务保存在浏览器 localStorage。换设备时用 .ics 导出，导入手机自带日历。</p>
+          <div class="btn-row">
+            <button class="btn btn-ghost" data-action="export-ics"><svg class="ico"><use href="#i-download"/></svg>导出 .ics</button>
+            <button class="btn btn-ghost" data-action="seed-demo">恢复示例数据</button>
+            <button class="btn btn-danger-ghost" data-action="clear-all">清空全部</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2><svg class="ico sm"><use href="#i-target"/></svg>个人生涯职业规划</h2>
+          <p class="panel-sub">填了才会参与计算：任务在表单里勾选「与职业规划相关」后，会拿到这一项的权重；没填则这一项不参与。</p>
+          <textarea id="careerGoal" class="input career-input" rows="4" placeholder="例如：成为算法工程师：先打好数据结构、算法和项目经历"></textarea>
+          <div class="setting-row mt"><label for="wCareer">职业规划占比</label><output id="wCareerOut">40%</output></div>
+          <input id="wCareer" class="range" type="range" min="0" max="100" step="1" value="40">
+          <p class="hint" id="careerHint">没填职业规划时这一项不参与，绩点和学分按比例重分配。</p>
+        </section>
+
+        <section class="panel wide-panel">
+          <h2><svg class="ico sm"><use href="#i-target"/></svg>周 / 月 / 日目标</h2>
+          <p class="panel-sub">目标不只是数字：周/月目标每天会被固定排进 45 分钟，日目标每天一块；关联任务完成后目标进度自动更新。截止自动取本周日 / 本月末 / 今天。</p>
+          <div id="goalList" class="goal-list"></div>
+          <div class="mini-form goal-form">
+            <input id="goalTitle" class="input" placeholder="例如：本周把实验四的报告 + 源码交掉" aria-label="目标名称">
+            <select id="goalScope" class="input" aria-label="目标周期">
+              <option value="week">本周</option>
+              <option value="month">本月</option>
+              <option value="day">每日</option>
+            </select>
+            <input id="goalHours" class="input" type="number" min="0.25" max="40" step="0.25" value="3" aria-label="目标投入小时">
+            <select id="goalImp" class="input" aria-label="目标重要程度">
+              <option value="2">重要</option>
+              <option value="3">关键</option>
+              <option value="1">一般</option>
+            </select>
+            <button class="btn btn-dark" data-action="add-goal">加入排程</button>
+          </div>
+        </section>
+
+        <section class="panel wide-panel">
+          <h2><svg class="ico sm"><use href="#i-users"/></svg>社团与其他活动</h2>
+          <p class="panel-sub">排计划前先扣掉这些时间：社团、例会、讲座、课外实践、家教、通勤。可以设「每周 / 仅本周 / 单次」和持续周数，也会列进任务清单。</p>
+          <div id="activityList" class="act-list"></div>
+          <div class="act-actions">
+            <button class="btn btn-dark" data-action="open-activity"><svg class="ico"><use href="#i-plus"/></svg>添加固定安排</button>
+            <span class="hint">社团结课、讲座结束都可以随时改持续周数或删除。</span>
+          </div>
+        </section>
+
+        <section class="panel wide-panel">
+          <h2>优先级是怎么算的</h2>
+          <div class="formula">
+            <div class="formula-main">优先级 = 紧急度占比 × 紧急度 + 重要度占比 × 重要度，默认 60% / 40%</div>
+            <ul class="formula-list">
+              <li><b>紧急度</b>：先扣掉这件事要用的工时，再看还剩多少时间；余量越少、截止越近，越紧急，逾期直接记满分。总占比可在设置顶部「紧急度 / 重要度占比」里滑动调整。</li>
+              <li><b>重要度</b>：由「绩点 / 课程学分 / 职业规划」三项组成，默认 30% / 30% / 40%，可在设置里分别滑动调整；没填职业规划时这一项不参与，另外两项按比例重分配。</li>
+              <li><b>四象限</b>：紧急且重要「马上做」、重要不紧急「每天固定做」、紧急不重要「集中清掉」、其余「有空再做」。</li>
+            </ul>
+            <p class="hint">不用黑箱模型：每一项都能在“为什么先做它”里看到出处，评委和学生都能验算。</p>
+          </div>
+        </section>
+
+        <section class="panel wide-panel">
+          <h2>一周是怎么排出来的</h2>
+          <div class="formula">
+            <div class="formula-main">先扣时间，再按优先级塞进 45 分钟的时间块</div>
+            <ul class="formula-list">
+              <li><b>先扣固定时间</b>：12:00–13:30 午饭午休、18:00–19:00 晚饭、23:00 后不排；社团/例会/家教整段扣掉。</li>
+              <li><b>每天有预算</b>：默认 3 小时，周末 +1 小时；排满就停，不会把一天塞到 8 小时。</li>
+              <li><b>截止前留缓冲</b>：越重要的任务留的缓冲越长，长任务往前摊开，不堆到截止前一晚。</li>
+              <li><b>重要不紧急</b>：周/月目标每天固定 45 分钟，日目标每天一块；高难度任务优先上午和晚间，碎片任务放午后低谷。</li>
+            </ul>
+            <p class="hint">排不下的任务不会硬塞：计划页会明确写“还差多少小时”，并建议降低预估或调高每日预算。</p>
+          </div>
+        </section>
+
+        <section class="panel wide-panel">
+          <h2>能读懂哪些写法</h2>
+          <div class="chips-cloud">
+            <span class="code-chip">11月20日 23:59</span><span class="code-chip">2026/12/3 17:00</span>
+            <span class="code-chip">本周五 12:00</span><span class="code-chip">下周三 18:00</span>
+            <span class="code-chip">第 13 周周三</span><span class="code-chip">今晚 24 点前</span>
+            <span class="code-chip">11.25 前</span><span class="code-chip">明天下午 5 点</span>
+            <span class="code-chip">【课程名】</span><span class="code-chip">《课程名》</span>
+            <span class="code-chip">占总评 30%</span><span class="code-chip">预计需要 4 小时</span>
+          </div>
+          <p class="hint">识别不出来的字段会留空并标红，让你补——宁可承认不确定，也不替你瞎猜。</p>
+        </section>
+
+        <section class="panel wide-panel about">
+          <h2>关于这个作品</h2>
+          <p>“不鸽”面向的是这样一群学生：作业散在 3 个教学平台、2 个群和教务系统里，每个平台都只提醒它自己那一件事；真正的截止时间要靠人脑汇总，于是总在最后一晚才发现“今晚要交三样”。</p>
+          <p>它不替你做作业，只做一件事：<b>把所有截止时间变成一张可执行的时间表</b>。粘一段通知，它给出结构化任务、优先级、今天几点做什么，以及导出到手机日历的入口。</p>
+          <p><b>最终版改动：</b>新增「紧急度 / 重要度占比」滑杆，默认 6:4，可滑到 7:3 或 5:5 影响任务排序；原「静室」改名为「音乐」；三版的重要性占比、职业规划、固定安排周期、学校档案导入全部保留。</p>
+          <div class="about-meta">
+            <div><span>形态</span><b>纯前端网页原型</b></div>
+            <div><span>依赖</span><b>零后端、零 API Key、可离线</b></div>
+            <div><span>数据</span><b>示例数据 + 本机存储</b></div>
+            <div><span>版本</span><b id="verLabel">v2.4 最终版</b></div>
+          </div>
+        </section>
+      </div>
+      <footer class="page-foot">不鸽 · Deadline Radar —— 赛题一「AI 辅助开发·创意产品原型」参赛作品</footer>
+    </section>
+  </main>
+
+  <!-- ============ 右侧 ============ -->
+  <aside class="rail">
+    <div class="rail-card">
+      <div class="rail-head">
+        <h3><svg class="ico sm"><use href="#i-radar"/></svg><span id="railPlanTitle">今日作战计划</span></h3>
+        <span class="pill" id="budgetTag">3h</span>
+      </div>
+      <div class="rail-days" id="railDays" aria-label="切换查看哪一天"></div>
+      <div id="plan" class="plan"></div>
+    </div>
+
+    <div class="rail-card">
+      <div class="rail-head">
+        <h3><svg class="ico sm"><use href="#i-bell"/></svg>接下来提醒</h3>
+        <button class="mini-btn" data-action="notify" id="notifyMini">开启</button>
+      </div>
+      <div id="reminders" class="reminders"></div>
+    </div>
+
+    <div class="rail-card">
+      <div class="rail-head"><h3>本周负荷</h3><span class="pill subtle" id="loadRatio">—</span></div>
+      <div id="load" class="load"></div>
+    </div>
+
+    <div class="rail-foot">
+      <span>最终版 v2.4</span><span>·</span><span>数据仅存本机</span>
+    </div>
+  </aside>
+</div>
+
+<audio id="bgm" loop preload="none"></audio>
+<div id="musicDock" class="music-dock is-hidden" aria-live="polite"></div>
+<div id="modalRoot"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+  /* 原型自检用：把未捕获异常记下来，方便自动化测试断言 */
+  window.__errs = [];
+  window.addEventListener('error', function (e) { window.__errs.push(String(e.message)); });
+  window.addEventListener('unhandledrejection', function (e) { window.__errs.push(String(e.reason)); });
+</script>
+<script src="assets/data.js"></script>
+<script src="assets/parser.js"></script>
+<script src="assets/plan.js"></script>
+<script src="assets/store.js"></script>
+<script src="assets/profile.js"></script>
+<script src="assets/audio.js"></script>
+<script src="assets/ui.js"></script>
+</body>
+</html>
